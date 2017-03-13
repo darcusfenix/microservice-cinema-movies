@@ -5,7 +5,7 @@ export const serverSettings = {
     "port": 3000,
     "ssl": ssl,
     "mongodbUrl": "localhost:27017",
-    "database": "pets",
+    "database": "movies",
     "cache": {
         "password": "bfdf8aba8e784557af145db15f8703c1"
     },

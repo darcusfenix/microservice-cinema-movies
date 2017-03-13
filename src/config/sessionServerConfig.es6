@@ -9,23 +9,6 @@ const log = log4js.getLogger("SESSION-MANAGEMENT-MONGO");
 
 const MongoStore = mongoStoreFactory(session);
 
-session.Session.prototype.login = function (user, cb) {
-
-    const req = this.req;
-    req.session.regenerate(function (err) {
-
-        if (err) {
-
-            cb(err);
-
-        }
-
-    });
-    req.session.userInfo = user;
-    cb();
-
-};
-
 
 const sessionManagementConfig = async(app) => {
 
@@ -55,6 +38,8 @@ const sessionManagementConfig = async(app) => {
             });
 
     } catch (err) {
+
+        log.error(err);
 
     }
 

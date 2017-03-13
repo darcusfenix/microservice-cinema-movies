@@ -11,7 +11,6 @@ import createSessionMongo from "./config/sessionServerConfig";
 import manageErrorHttpConfig from "./config/manageErrorHttpConfig";
 import staticMimesConfig from "./config/staticMimeConfig";
 import apiRouteConfig from "./config/apiRoutesConfig";
-import webpackConfig from "./config/webpackConfig";
 
 const app = express(),
     log = log4js.getLogger("app");
@@ -26,7 +25,6 @@ createSessionMongo(app)
         app.use(bodyParser.json());
 
         staticMimesConfig(express);
-        webpackConfig(app);
         apiRouteConfig(app);
         manageErrorHttpConfig(app);
 
