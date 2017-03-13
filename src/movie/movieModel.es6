@@ -3,13 +3,16 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema,
     movieSchema = new Schema({
         "title": {
-            "type": String
+            "type": String,
+            "required": true,
         },
         "duration": {
-            "type": Number
+            "type": Number,
+            "required": true,
         },
         "description": {
-            "type": String
+            "type": String,
+            "required": true,
         },
         "imageUrl": {
             "type": String,
@@ -20,7 +23,8 @@ const Schema = mongoose.Schema,
             "default": 0
         },
         "rate": {
-            "type": String
+            "type": String,
+            "required": true,
         },
         "active": {
             "type": Boolean,
@@ -29,4 +33,4 @@ const Schema = mongoose.Schema,
 
     });
 
-export default mongoose.model("movie", movieSchema);
+export default movieSchema;

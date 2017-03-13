@@ -1,56 +1,155 @@
-const movieController = (Movie) => {
+import log4js from "log4js";
 
-    const get = (req, res) => {
+import {getMovieModel} from "./movieModelFactory";
+import {movieSchema} from "./movieValidationSchema";
 
-            let query = {};
+const log = log4js.getLogger("MOVIE-CONTROLLER");
 
-            if (req.query.title) {
+export const
+    get = async(req, res) => {
+        const Movie = await getMovieModel();
 
-                query.title = req.query.title;
+        let query = {};
 
-            }
+        if (req.query.title) {
 
-            Movie.find(query, (err, pets) => {
+            query.title = req.query.title;
 
-                if (err) {
+        }
 
-                    res.status(500).send(err);
+        Movie.find(query, (err, pets) => {
 
-                } else {
+            if (err) {
 
-                    res.json(pets);
-
-                }
-
-            });
-
-        },
-        post = (req, res) => {
-
-            let pet = new Movie(req.body);
-
-
-            if (!req.body.title) {
-
-                res.status(400);
-                res.send("Name is required");
+                res.status(500).send(err);
 
             } else {
 
-                pet.save();
-                res.status(201);
-                res.send(pet);
+                res.json(pets);
 
             }
 
+        });
 
-        };
+    },
+    getById = (req, res) => {
 
-    return {
-        "get": get,
-        "post": post
+        if (req.movie === null) {
+
+            res.statusCode = 404;
+            res.json({"message": "not found"});
+
+        } else {
+
+            res.json(req.movie);
+
+        }
+
+    },
+    patch = (req, res) => {
+
+        if (req.body._id) {
+
+            delete req.body._id;
+
+        }
+
+        for (const property in req.body) {
+
+            req.movie[property] = req.body[property];
+
+        }
+
+        const promise = req.movie.save();
+        promise.then(movie => {
+
+            res.json(movie);
+
+        });
+
+        promise.catch(error => {
+
+            res.statusCode = 505;
+            res.json({"message": error});
+
+        });
+
+    },
+    post = async(req, res) => {
+
+        const Movie = await getMovieModel();
+        req.checkBody(movieSchema);
+
+        const errors = req.validationErrors();
+
+        if (errors) {
+            log.error(errors);
+            res.status(401).json(errors);
+        }
+
+        let pet = new Movie(req.body);
+
+        pet.save();
+        res.status(201);
+        res.send(pet);
+
+    },
+    preRequestById = async(req, res, next) => {
+
+        const Movie = await getMovieModel();
+        const query = Movie.findById({"_id": req.params.id});
+        query.exec().then(movie => {
+
+            req.movie = movie;
+            log.debug(movie);
+            next();
+
+        }).catch(error => {
+
+            log.error(error);
+            res.statusCode = 404;
+            res.json({"message": error});
+
+        });
+
+    },
+    put = (req, res) => {
+
+        req.movie.title = req.body.title;
+        req.movie.duration = req.body.duration;
+        req.movie.description = req.body.description;
+        req.movie.rate = req.body.rate;
+
+        const promise = req.movie.save();
+
+        promise.then(movie => {
+
+            res.json(movie);
+
+        });
+        promise.catch(error => {
+
+            res.statusCode = 505;
+            res.json({"message": error});
+
+        });
+
+    },
+    remove = (req, res) => {
+
+        const promise = req.movie.remove();
+        promise.then(() => {
+
+            res.statusCode = 204;
+            res.json({"message": "removed"});
+
+        });
+        promise.catch(error => {
+
+            log.error(error);
+            res.statusCode = 505;
+            res.json({"message": error});
+
+        });
+
     };
-
-};
-
-export default movieController;

@@ -1,0 +1,8 @@
+"standard": {
+  "ignore": [
+    "/node_modules/",
+    "/dist/",
+    ".idea/",
+    "tmp.js"
+  ]
+}

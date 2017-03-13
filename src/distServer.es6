@@ -38,7 +38,6 @@ createSessionMongo(app)
 
                 let message = `SE INICIÓ EL SERVIDOR EN EL PUERTO:  ${serverSettings.port}`;
                 console.log(message);
-                open("http://localhost:" + serverSettings.port);
 
             }
 
