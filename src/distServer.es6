@@ -3,17 +3,17 @@ import express from "express";
 import expressValidator from "express-validator";
 import log4js from "log4js";
 import helmet from "helmet";
-import spdy from "spdy";
-import open from "open";
 
 import {serverSettings} from "./config/config";
 import createSessionMongo from "./config/sessionServerConfig";
 import manageErrorHttpConfig from "./config/manageErrorHttpConfig";
-import staticMimesConfig from "./config/staticMimeConfig";
 import apiRouteConfig from "./config/apiRoutesConfig";
+
+log4js.configure(__dirname +'/'+ 'log4js.json');
 
 const app = express(),
     log = log4js.getLogger("app");
+
 
 createSessionMongo(app)
     .then(() => {
@@ -24,11 +24,11 @@ createSessionMongo(app)
         app.use(expressValidator());
         app.use(bodyParser.json());
 
-        staticMimesConfig(express);
         apiRouteConfig(app);
         manageErrorHttpConfig(app);
 
-        app.listen(serverSettings.port, (err) => {
+
+         app.listen(serverSettings.port, (err) => {
 
             if (err) {
 
@@ -42,10 +42,6 @@ createSessionMongo(app)
             }
 
         });
-
-
-
-
 
     })
     .catch((err) => {
