@@ -14,7 +14,7 @@ const sessionManagementConfig = async(app) => {
 
     try {
 
-        const conn = await connectionProvider(serverSettings.mongodbUrl, serverSettings.database)
+        const conn = await connectionProvider()
             .then( () => {
 
                 log.debug("conexion successfull");
@@ -23,7 +23,7 @@ const sessionManagementConfig = async(app) => {
                         "dbPromise": conn,
                         "ttl": 60 * 60
                     }),
-                    "secret": serverSettings.session.password,
+                    "secret": serverSettings.session.mongodbPassword,
                     "saveUninitialized": true,
                     "resave": false,
                     "cookie": {

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import log4js from "log4js";
+import {serverSettings}   from "../config/config";
 
 const internalConnectionPool = {},
     log = log4js.getLogger("CONNECTION-MONGODB");
@@ -12,7 +13,7 @@ export default function (url, database, options) {
 
     return new Promise((resolve, reject) => {
 
-        const address = `mongodb://${url}/${database}`;
+        const address = `mongodb://${serverSettings.mongodbUser}:${serverSettings.mongodbPassword}@${serverSettings.mongodbUrl}:${serverSettings.mongodbPort}/${serverSettings.mongodbDatabase}`;
         log.debug("address to mongodb: ", address);
         if (!internalConnectionPool[address]) {
 

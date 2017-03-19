@@ -28,7 +28,7 @@ createSessionMongo(app)
         manageErrorHttpConfig(app);
 
 
-         app.listen(serverSettings.port, (err) => {
+         app.listen(serverSettings.port,"0.0.0.0", (err) => {
 
             if (err) {
 
@@ -36,7 +36,7 @@ createSessionMongo(app)
 
             } else {
 
-                let message = `SE INICIÓ EL SERVIDOR EN EL PUERTO:  ${serverSettings.port}`;
+                let message = `SE INICIÓ EL SERVIDOR EN EL PUERTO:  ${serverSettings.expressPort}`;
                 console.log(message);
 
             }
