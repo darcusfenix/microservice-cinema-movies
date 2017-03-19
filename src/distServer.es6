@@ -28,7 +28,7 @@ createSessionMongo(app)
         manageErrorHttpConfig(app);
 
 
-         app.listen(serverSettings.port,"0.0.0.0", (err) => {
+         app.listen(serverSettings.expressPort,"0.0.0.0", (err) => {
 
             if (err) {
 
