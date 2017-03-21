@@ -1,4 +1,4 @@
-MONGODB_URL=mongodb.crisostomo.soy
+MONGODB_URL=mongodb
 MONGODB_PORT=27017
 MONGODB_DATABASE=admin
 MONGODB_USER=darcusfenix
