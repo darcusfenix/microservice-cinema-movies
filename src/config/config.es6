@@ -1,6 +1,6 @@
 export const serverSettings = {
     "nameServer": "localhost",
-    "mongodbUrl": process.env.MONGODB_URL ? process.env.MONGODB_URL : "13.85.69.225",
+    "mongodbUrl": process.env.MONGODB_URL ? process.env.MONGODB_URL : "localhost",
     "mongodbDatabase": process.env.MONGODB_DATABASE ? process.env.MONGODB_DATABASE : "admin",
     "mongodbUser": process.env.MONGODB_USER ? process.env.MONGODB_USER : "darcusfenix",
     "mongodbPassword": process.env.MONGODB_PASSWORD ? process.env.MONGODB_PASSWORD : "darcusfenix",

@@ -9,7 +9,7 @@ import createSessionMongo from "./config/sessionServerConfig";
 import manageErrorHttpConfig from "./config/manageErrorHttpConfig";
 import apiRouteConfig from "./config/apiRoutesConfig";
 
-log4js.configure(__dirname +'/'+ 'log4js.json');
+log4js.configure(__dirname + '/' + 'log4js.json');
 
 const app = express(),
     log = log4js.getLogger("app");
@@ -28,7 +28,7 @@ createSessionMongo(app)
         manageErrorHttpConfig(app);
 
 
-         app.listen(serverSettings.expressPort,"0.0.0.0", (err) => {
+        app.listen(serverSettings.expressPort, "0.0.0.0", (err) => {
 
             if (err) {
 
