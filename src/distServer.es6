@@ -4,7 +4,7 @@ import expressValidator from "express-validator";
 import log4js from "log4js";
 import helmet from "helmet";
 
-import {serverSettings} from "./config/config";
+import {settings}   from "microservice-cinema-core";
 import createSessionMongo from "./config/sessionServerConfig";
 import manageErrorHttpConfig from "./config/manageErrorHttpConfig";
 import apiRouteConfig from "./config/apiRoutesConfig";
@@ -28,7 +28,7 @@ createSessionMongo(app)
         manageErrorHttpConfig(app);
 
 
-        app.listen(serverSettings.expressPort, "0.0.0.0", (err) => {
+        app.listen(settings.expressPort, "0.0.0.0", (err) => {
 
             if (err) {
 
@@ -36,7 +36,7 @@ createSessionMongo(app)
 
             } else {
 
-                let message = `SE INICIÓ EL SERVIDOR EN EL PUERTO:  ${serverSettings.expressPort}`;
+                let message = `SE INICIÓ EL SERVIDOR EN EL PUERTO:  ${settings.expressPort}`;
                 console.log(message);
 
             }

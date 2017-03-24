@@ -1,7 +1,5 @@
 import log4js from "log4js";
-
-import {getMovieModel} from "./movieModelFactory";
-import {movieSchema} from "./movieValidationSchema";
+import {getMovieModel, movieSchema} from "microservice-cinema-core";
 
 const log = log4js.getLogger("MOVIE-CONTROLLER");
 
