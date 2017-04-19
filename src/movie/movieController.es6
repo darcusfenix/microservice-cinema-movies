@@ -1,5 +1,5 @@
 import log4js from "log4js";
-import {getMovieModel, movieSchema} from "microservice-cinema-core";
+import {getMovieModel, movieSchema, sendNotificacion, settings} from "microservice-cinema-core";
 
 const log = log4js.getLogger("MOVIE-CONTROLLER");
 
@@ -15,7 +15,7 @@ export const
 
         }
 
-        Movie.find(query, (err, pets) => {
+        Movie.find(query, (err, movies) => {
 
             if (err) {
 
@@ -23,7 +23,7 @@ export const
 
             } else {
 
-                res.json(pets);
+                res.json(movies);
 
             }
 
@@ -85,11 +85,37 @@ export const
             res.status(401).json(errors);
         }
 
-        let pet = new Movie(req.body);
+        let movie = new Movie(req.body);
 
-        pet.save();
-        res.status(201);
-        res.send(pet);
+        movie.save((err) => {
+
+            if (err) {
+
+                log.error(err);
+                res.status(500);
+                res.json(err);
+
+            } else {
+
+                sendNotificacion(settings.commentsTopic, movie.id)
+                    .then((response) => {
+
+
+                    })
+                    .catch((error) => {
+
+                    })
+                    .then(() => {
+
+                        res.status(201);
+                        res.send(movie);
+
+                    });
+            }
+
+
+        });
+
 
     },
     preRequestById = async(req, res, next) => {

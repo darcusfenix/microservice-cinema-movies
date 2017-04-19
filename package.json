@@ -48,5 +48,8 @@
   },
   "standard": {
     "parser": "babel-eslint"
+  },
+  "dependencies": {
+    "microservice-cinema-core": "git+https://github.com/darcusfenix/microservice-cinema-core.git"
   }
 }
