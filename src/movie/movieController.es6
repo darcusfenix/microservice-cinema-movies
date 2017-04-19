@@ -97,7 +97,7 @@ export const
 
             } else {
 
-                sendNotificacion(settings.commentsTopic, movie.id)
+                sendNotificacion(settings.moviesTopic, movie.id)
                     .then((response) => {
 
 
